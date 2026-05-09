@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Hub from './components/Hub';
 import MagicPresentation from './components/MagicPresentation';
+import MagicOverview from './components/MagicOverview';
 import MeleePresentation from './components/MeleePresentation';
 import RangedPresentation from './components/RangedPresentation';
 
@@ -9,6 +10,10 @@ export default function App() {
 
   if (selectedExperience === 'magic') {
     return <MagicPresentation onBack={() => setSelectedExperience(null)} />;
+  }
+
+  if (selectedExperience === 'magic-overview') {
+    return <MagicOverview onBack={() => setSelectedExperience(null)} />;
   }
 
   if (selectedExperience === 'melee') {

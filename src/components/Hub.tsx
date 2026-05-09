@@ -10,7 +10,8 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
        subtitle: 'Arcane System',
        icon: <Sparkles className="w-16 h-16" />,
        color: 'text-blue-400',
-       border: 'border-blue-500/30'
+       border: 'border-blue-500/30',
+       overviewId: 'magic-overview'
     },
     {
        id: 'melee',
@@ -50,32 +51,88 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
 
       <div className="flex gap-8 z-10">
         {options.map((opt, i) => (
-          <motion.button
-            key={opt.id}
-            onClick={() => !opt.locked && onSelect(opt.id)}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.15 + 0.2 }}
-            disabled={opt.locked}
-            className={`relative group p-8 w-64 h-80 flex flex-col items-center justify-center panel-gold border ${opt.border} rounded-sm transition-all duration-500 
-              ${opt.locked ? 'opacity-40 grayscale cursor-not-allowed' : 'hover:scale-105 hover:bg-white/5 cursor-pointer'}`}
-          >
-            {!opt.locked && (
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div key={opt.id} className="relative flex flex-col items-center">
+            <motion.button
+              onClick={() => !opt.locked && onSelect(opt.id)}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: i * 0.15 + 0.2 }}
+              disabled={opt.locked}
+              className={`relative group p-8 w-64 h-80 flex flex-col items-center justify-center panel-gold border ${opt.border} rounded-sm transition-all duration-500 
+                ${opt.locked ? 'opacity-40 grayscale cursor-not-allowed' : 'hover:scale-105 hover:bg-white/5 cursor-pointer'}`}
+            >
+              {!opt.locked && (
+                <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              )}
+              
+              <div className={`mb-8 transition-transform duration-500 group-hover:-translate-y-2 ${opt.color} ${opt.glow || ''}`}>
+                {opt.icon}
+              </div>
+              
+              <h2 className={`display text-xl mb-2 transition-colors duration-300 ${opt.locked ? 'text-white/50' : opt.color}`}>
+                {opt.title}
+              </h2>
+              
+              <p className="text-[10px] uppercase font-mono tracking-widest text-white/50 group-hover:text-white/80 transition-colors">
+                {opt.locked ? '[ CLASSIFIED ]' : opt.subtitle}
+              </p>
+            </motion.button>
+            
+            {opt.overviewId && (
+              <motion.button
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.15 + 0.4 }}
+                onClick={() => onSelect(opt.overviewId!)}
+                className="absolute -bottom-14 w-64 h-10 rounded-full border border-cyan-500/40 bg-black/60 shadow-[0_0_15px_rgba(6,182,212,0.2)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] hover:border-cyan-400 transition-all duration-300 overflow-hidden group cursor-pointer z-20 flex items-center justify-center"
+              >
+                {/* Background Dim Liquid */}
+                <div className="absolute inset-0 bg-cyan-900/40 transition-colors duration-300 group-hover:bg-cyan-800/40" />
+
+                {/* Animated Liquid Level */}
+                <div className="absolute top-0 bottom-0 left-0 w-4/5 bg-cyan-400/40 border-r-2 border-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.8)] transition-all duration-700 ease-out group-hover:w-full group-hover:bg-cyan-400/60" />
+
+                {/* Glass Specular Highlight top */}
+                <div className="absolute top-0 left-4 right-4 h-[30%] bg-gradient-to-b from-white/30 to-transparent rounded-full z-10 pointer-events-none" />
+                
+                {/* Glass Shadow bottom */}
+                <div className="absolute bottom-0 left-4 right-4 h-[30%] bg-gradient-to-t from-black/50 to-transparent rounded-full z-10 pointer-events-none" />
+
+                {/* Bubbles */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                  {Array.from({ length: 15 }).map((_, j) => (
+                    <motion.div
+                      key={j}
+                      className="absolute rounded-full bg-cyan-100 shadow-[0_0_5px_rgba(255,255,255,0.8)]"
+                      style={{
+                        top: `${Math.random() * 60 + 20}%`,
+                        width: `${Math.random() * 3 + 1.5}px`,
+                        height: `${Math.random() * 3 + 1.5}px`,
+                      }}
+                      initial={{ x: -10, opacity: 0 }}
+                      animate={{ x: 270, opacity: [0, 1, 1, 0] }}
+                      transition={{
+                        duration: Math.random() * 2 + 1.5,
+                        repeat: Infinity,
+                        delay: Math.random() * 2,
+                        ease: "linear"
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Text Content */}
+                <span className="relative z-20 font-mono text-[10px] uppercase tracking-widest text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)] group-hover:text-cyan-50 transition-colors duration-300">
+                  Quick Overview
+                </span>
+                
+                {/* Cap Left */}
+                <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-gray-500 via-gray-400 to-gray-500 border-r border-black/40 z-10 shadow-[inset_-2px_0_4px_rgba(0,0,0,0.5)]" />
+                {/* Cap Right */}
+                <div className="absolute right-0 top-0 bottom-0 w-3 bg-gradient-to-l from-gray-500 via-gray-400 to-gray-500 border-l border-black/40 z-10 shadow-[inset_2px_0_4px_rgba(0,0,0,0.5)]" />
+              </motion.button>
             )}
-            
-            <div className={`mb-8 transition-transform duration-500 group-hover:-translate-y-2 ${opt.color} ${opt.glow || ''}`}>
-              {opt.icon}
-            </div>
-            
-            <h2 className={`display text-xl mb-2 transition-colors duration-300 ${opt.locked ? 'text-white/50' : opt.color}`}>
-              {opt.title}
-            </h2>
-            
-            <p className="text-[10px] uppercase font-mono tracking-widest text-white/50 group-hover:text-white/80 transition-colors">
-              {opt.locked ? '[ CLASSIFIED ]' : opt.subtitle}
-            </p>
-          </motion.button>
+          </div>
         ))}
       </div>
       

@@ -53,6 +53,24 @@ body {
   backdrop-filter: blur(4px);
 }
 
+.panel-blue {
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: rgba(15, 20, 30, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.panel-orange {
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  background: rgba(30, 20, 15, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.panel-purple {
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  background: rgba(25, 15, 30, 0.8);
+  backdrop-filter: blur(4px);
+}
+
 /* Atmospheric background */
 .bg-arcane {
   background:
