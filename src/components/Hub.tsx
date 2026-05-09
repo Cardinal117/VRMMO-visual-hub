@@ -37,11 +37,11 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
   ];
 
   return (
-    <div className="w-full h-screen bg-arcane relative flex flex-col items-center justify-center overflow-hidden">
+    <div className="w-full min-h-[100dvh] md:h-screen bg-arcane relative flex flex-col items-center justify-center overflow-x-hidden overflow-y-auto pt-24 pb-24 md:p-0">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-16 text-center z-10"
+        className="mb-16 md:mb-16 text-center z-10 mt-8 md:mt-0"
       >
         <h1 className="display text-4xl text-white tracking-[0.3em] mb-4">
           Combat <span className="text-gold">Hub</span>
@@ -51,7 +51,7 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
         </p>
       </motion.div>
 
-      <div className="flex gap-8 z-10">
+      <div className="flex flex-col md:flex-row gap-20 md:gap-8 z-10 w-full max-w-6xl justify-center items-center px-4">
         {options.map((opt, i) => (
           <div key={opt.id} className="relative flex flex-col items-center">
             <motion.button

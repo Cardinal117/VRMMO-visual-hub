@@ -46,12 +46,12 @@ export default function MagicPresentation({ onBack }: { onBack: () => void }) {
   const CurrentComponent = slides[currentSlide];
 
   return (
-    <div className="w-full h-screen bg-arcane relative flex flex-col items-center justify-center overflow-hidden font-sans">
+    <div className="w-full h-[100dvh] bg-arcane relative flex flex-col items-center justify-center overflow-hidden font-sans">
       
       {/* Back Button */}
       <button 
         onClick={onBack}
-        className="absolute top-8 left-8 z-50 p-2 rounded-sm border border-gold/30 text-gold hover:bg-gold/10 hover:border-gold transition-all flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase backdrop-blur-sm bg-black/40 cursor-pointer"
+        className="absolute top-4 sm:top-8 left-4 sm:left-8 z-50 p-2 rounded-sm border border-gold/30 text-gold hover:bg-gold/10 hover:border-gold transition-all flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase backdrop-blur-sm bg-black/40 cursor-pointer"
       >
         <ChevronLeft className="w-4 h-4" /> Hub
       </button>
@@ -84,7 +84,7 @@ export default function MagicPresentation({ onBack }: { onBack: () => void }) {
         ))}
       </div>
 
-      <main className="relative z-10 w-full max-w-7xl h-full flex items-center justify-center p-8">
+      <main className="relative z-10 w-full max-w-7xl h-full flex items-center justify-center p-4 sm:p-8 pt-16 pb-24">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentSlide}
@@ -93,17 +93,19 @@ export default function MagicPresentation({ onBack }: { onBack: () => void }) {
             animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
             exit={{ opacity: 0, x: direction > 0 ? -50 : 50, filter: 'blur(10px)' }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full h-full flex items-center justify-center p-4 max-h-screen overflow-y-auto custom-scrollbar"
+            className="w-full h-full flex items-center justify-center p-2 sm:p-4 max-h-[100dvh] overflow-y-auto overflow-x-hidden custom-scrollbar"
           >
-            <CurrentComponent onHub={onBack} onRestart={() => {setDirection(-1); setCurrentSlide(0);}} />
+            <div className="scale-[0.8] sm:scale-100 origin-center w-full max-w-full flex items-center justify-center">
+              <CurrentComponent onHub={onBack} onRestart={() => {setDirection(-1); setCurrentSlide(0);}} />
+            </div>
           </motion.div>
         </AnimatePresence>
       </main>
 
       {/* Navigation Controls */}
-      <div className="absolute bottom-8 left-0 right-0 flex justify-between items-center px-12 z-20 pointer-events-none">
-        <div className="flex-1">
-          <div className="flex gap-2 pointer-events-auto">
+      <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 flex flex-col sm:flex-row gap-4 justify-between items-center px-4 sm:px-12 z-20 pointer-events-none">
+        <div className="flex-1 w-full flex justify-center sm:justify-start">
+          <div className="flex gap-1 sm:gap-2 pointer-events-auto flex-wrap justify-center">
             {slides.map((_, i) => (
               <button 
                 key={i}
@@ -111,27 +113,27 @@ export default function MagicPresentation({ onBack }: { onBack: () => void }) {
                   setDirection(i > currentSlide ? 1 : -1);
                   setCurrentSlide(i);
                 }}
-                className={`w-12 h-1 rounded-full transition-all duration-500 ${i === currentSlide ? 'bg-gold shadow-[0_0_8px_rgba(212,175,55,0.8)]' : 'bg-white/20 hover:bg-white/40'}`}
+                className={`w-6 sm:w-12 h-1 rounded-full transition-all duration-500 flex-shrink-0 ${i === currentSlide ? 'bg-gold shadow-[0_0_8px_rgba(212,175,55,0.8)]' : 'bg-white/20 hover:bg-white/40'}`}
                 aria-label={`Go to slide ${i + 1}`}
               />
             ))}
           </div>
         </div>
         
-        <div className="flex gap-4 pointer-events-auto ml-12">
+        <div className="flex gap-4 pointer-events-auto ml-0 sm:ml-12">
           <button 
             onClick={() => paginate(-1)}
             disabled={currentSlide === 0}
-            className="p-3 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 hover:bg-white/5 disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+            className="p-2 sm:p-3 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 hover:bg-white/5 disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
           <button 
             onClick={() => paginate(1)}
             disabled={currentSlide === slides.length - 1}
-            className="p-3 rounded-full border border-gold/30 text-gold hover:text-gold hover:border-gold hover:bg-gold/10 hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+            className="p-2 sm:p-3 rounded-full border border-gold/30 text-gold hover:text-gold hover:border-gold hover:bg-gold/10 hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
       </div>

@@ -98,17 +98,17 @@ export default function MagicOverview({ onBack }: { onBack: () => void }) {
   ];
 
   return (
-    <div className="w-full h-screen bg-arcane relative flex flex-col items-center justify-center overflow-hidden font-sans text-white">
+    <div className="w-full h-[100dvh] bg-arcane relative flex flex-col items-center justify-center overflow-hidden font-sans text-white">
       
       <button 
         onClick={onBack}
-        className="absolute top-8 left-8 z-50 p-2 rounded-sm border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 hover:border-blue-400 transition-all flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase backdrop-blur-sm bg-black/40 cursor-pointer"
+        className="absolute top-4 md:top-8 left-4 md:left-8 z-50 p-2 rounded-sm border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 hover:border-blue-400 transition-all flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase backdrop-blur-sm bg-black/40 cursor-pointer"
       >
         <ChevronLeft className="w-4 h-4" /> Hub
       </button>
 
       {/* Main Content Area */}
-      <main className="relative z-10 w-full max-w-6xl h-full flex items-center justify-center p-8 pt-16 pb-32">
+      <main className="relative z-10 w-full max-w-6xl h-full flex items-center justify-center px-4 md:p-8 pt-20 pb-32">
         <AnimatePresence mode="wait">
           <motion.div
             key={stage}
@@ -116,7 +116,7 @@ export default function MagicOverview({ onBack }: { onBack: () => void }) {
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
             transition={{ duration: 0.8 }}
-            className="w-full flex justify-center"
+            className="w-full flex justify-center h-full items-center"
           >
             {renderScene()}
           </motion.div>
@@ -124,13 +124,13 @@ export default function MagicOverview({ onBack }: { onBack: () => void }) {
       </main>
 
       {/* Playback Controls & Timeline */}
-      <div className="absolute bottom-8 w-full max-w-4xl px-8 z-50 flex flex-col gap-4">
+      <div className="absolute bottom-6 md:bottom-8 w-full max-w-4xl px-4 md:px-8 z-50 flex flex-col gap-4">
         <div className="flex justify-between text-[10px] font-mono tracking-widest uppercase text-blue-300">
            <span>{sceneTitles[stage]}</span>
            <span>00:0{stage + 1} / 00:06</span>
         </div>
         
-        <div className="flex gap-2 w-full">
+        <div className="flex gap-1 md:gap-2 w-full">
           {sceneTitles.map((_, i) => (
             <div 
               key={i} 
