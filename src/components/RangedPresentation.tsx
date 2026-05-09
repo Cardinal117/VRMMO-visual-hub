@@ -1,0 +1,143 @@
+import React, { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
+
+import RangedIntroSlide from './ranged-slides/RangedIntroSlide';
+import RangedQuiverSlide from './ranged-slides/RangedQuiverSlide';
+import RangedDrawSlide from './ranged-slides/RangedDrawSlide';
+import RangedCombosSlide from './ranged-slides/RangedCombosSlide';
+import RangedCurveSlide from './ranged-slides/RangedCurveSlide';
+import RangedScoutSlide from './ranged-slides/RangedScoutSlide';
+import RangedRecallSlide from './ranged-slides/RangedRecallSlide';
+import RangedOutroSlide from './ranged-slides/RangedOutroSlide';
+
+const slides = [
+  RangedIntroSlide,
+  RangedQuiverSlide,
+  RangedDrawSlide,
+  RangedCombosSlide,
+  RangedCurveSlide,
+  RangedScoutSlide,
+  RangedRecallSlide,
+  RangedOutroSlide,
+];
+
+export default function RangedPresentation({ onBack }: { onBack: () => void }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const paginate = (newDirection: number) => {
+    if (currentSlide + newDirection >= 0 && currentSlide + newDirection < slides.length) {
+      setDirection(newDirection);
+      setCurrentSlide((prev) => prev + newDirection);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') {
+        paginate(1);
+      } else if (e.key === 'ArrowLeft') {
+        paginate(-1);
+      } else if (e.key === 'Escape') {
+        onBack();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentSlide, onBack]);
+
+  const CurrentComponent = slides[currentSlide];
+
+  return (
+    <div className="w-full h-screen bg-arcane relative flex flex-col items-center justify-center overflow-hidden font-sans text-white">
+      
+      {/* Back Button */}
+      <button 
+        onClick={onBack}
+        className="absolute top-8 left-8 z-50 p-2 rounded-sm border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-400 transition-all flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase backdrop-blur-sm bg-black/40 cursor-pointer"
+      >
+        <ChevronLeft className="w-4 h-4" /> Hub
+      </button>
+
+      {/* Atmospheric Particles - Emerald */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-30 mix-blend-screen">
+        {Array.from({ length: 15 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-emerald-400 blur-[1px]"
+            initial={{ 
+              x: Math.random() * window.innerWidth, 
+              y: window.innerHeight + Math.random() * 200,
+              opacity: Math.random() * 0.3 + 0.1,
+              scale: Math.random() * 1.5 + 0.5
+            }}
+            animate={{ 
+              y: -100,
+              x: `calc(${Math.random() * 100 - 50}vw)`,
+            }}
+            transition={{ 
+              duration: Math.random() * 8 + 8, 
+              repeat: Infinity, 
+              ease: "linear",
+              delay: Math.random() * 8 
+            }}
+            style={{ width: 4, height: 4 }}
+          />
+        ))}
+      </div>
+
+      <main className="relative z-10 w-full max-w-7xl h-full flex items-center justify-center p-8">
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={currentSlide}
+            custom={direction}
+            initial={{ opacity: 0, x: direction > 0 ? 50 : -50, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, x: direction > 0 ? -50 : 50, filter: 'blur(10px)' }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full h-full flex items-center justify-center p-4 max-h-screen overflow-y-auto custom-scrollbar"
+          >
+            <CurrentComponent onHub={onBack} onRestart={() => {setDirection(-1); setCurrentSlide(0);}} />
+          </motion.div>
+        </AnimatePresence>
+      </main>
+
+      {/* Navigation Controls */}
+      <div className="absolute bottom-8 left-0 right-0 flex justify-between items-center px-12 z-20 pointer-events-none">
+        <div className="flex-1">
+          <div className="flex gap-2 pointer-events-auto">
+            {slides.map((_, i) => (
+              <button 
+                key={i}
+                onClick={() => {
+                  setDirection(i > currentSlide ? 1 : -1);
+                  setCurrentSlide(i);
+                }}
+                className={`w-12 h-1 rounded-full transition-all duration-500 ${i === currentSlide ? 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]' : 'bg-white/20 hover:bg-white/40'}`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+        
+        <div className="flex gap-4 pointer-events-auto ml-12">
+          <button 
+            onClick={() => paginate(-1)}
+            disabled={currentSlide === 0}
+            className="p-3 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 hover:bg-white/5 disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button 
+            onClick={() => paginate(1)}
+            disabled={currentSlide === slides.length - 1}
+            className="p-3 rounded-full border border-emerald-500/30 text-emerald-400 hover:text-emerald-400 hover:border-emerald-400 hover:bg-emerald-500/10 hover:shadow-[0_0_15px_rgba(52,211,153,0.3)] disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
