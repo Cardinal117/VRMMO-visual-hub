@@ -17,10 +17,10 @@ export default function OutroSlide({ onRestart, onHub }: { onRestart?: () => voi
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
-        <h2 className="display text-5xl md:text-6xl tracking-[0.2em] text-glow mb-4 text-gold">
+        <h2 className="display text-5xl md:text-6xl tracking-[0.2em] text-glow mb-4 text-blue-400">
           A MAGICAL FOUNDATION
         </h2>
-        <div className="h-px w-64 bg-gradient-to-r from-transparent via-gold/50 to-transparent mx-auto my-6" />
+        <div className="h-px w-64 bg-gradient-to-r from-transparent via-blue-400/50 to-transparent mx-auto my-6" />
         <p className="text-lg text-white/70 max-w-2xl mx-auto serif italic">
           An elegant, satisfying, and VR-ready system designed to make players truly feel like masters of the arcane.
         </p>
@@ -34,11 +34,11 @@ export default function OutroSlide({ onRestart, onHub }: { onRestart?: () => voi
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
            {points.map((pt, i) => (
-             <div key={i} className="flex flex-col items-center gap-3 p-6 rounded-sm panel-gold border-gold/20">
-               <div className="text-gold">
+             <div key={i} className="flex flex-col items-center gap-3 p-6 rounded-sm panel-blue border-blue-500/20">
+               <div className="text-blue-400">
                  {pt.icon}
                </div>
-               <span className="font-mono text-[10px] tracking-widest uppercase text-white/50 w-full border-t border-gold/20 pt-3">
+               <span className="font-mono text-[10px] tracking-widest uppercase text-white/50 w-full border-t border-blue-500/20 pt-3">
                  {pt.text}
                </span>
              </div>
@@ -60,7 +60,7 @@ export default function OutroSlide({ onRestart, onHub }: { onRestart?: () => voi
         </button>
         <button
            onClick={onRestart}
-           className="px-8 py-3 rounded-sm border border-gold/30 text-gold uppercase tracking-widest font-mono text-[10px] hover:bg-gold/10 hover:border-gold transition-all duration-300 bg-black/40"
+           className="px-8 py-3 rounded-sm border border-blue-500/30 text-blue-400 uppercase tracking-widest font-mono text-[10px] hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-300 bg-black/40"
         >
           Restart Experience
         </button>

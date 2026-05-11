@@ -10,7 +10,7 @@ export default function IncantationSlide() {
       condition: "No Incantation",
       desc: "Normal execution. Core combat remains fluid and unaffected.",
       color: "text-white/80",
-      border: "border-gold/20",
+      border: "border-blue-500/20",
     },
     {
       icon: <Mic className="w-8 h-8" />,
@@ -44,13 +44,13 @@ export default function IncantationSlide() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-12 text-center max-w-2xl border-b border-gold/20 pb-4"
+        className="mb-12 text-center max-w-2xl border-b border-blue-500/20 pb-4"
       >
-        <h2 className="display text-4xl text-gold tracking-[0.3em] glow-amber mb-4">
+        <h2 className="display text-4xl text-blue-400 tracking-[0.3em] glow-blue mb-4">
           Incantation Lexicon
         </h2>
         <p className="text-white/60 text-lg serif italic">
-          Voice is a <strong className="text-gold">modifier</strong>, not a requirement. It adds depth for those who fully immerse themselves, but never gates core progression.
+          Voice is a <strong className="text-blue-400">modifier</strong>, not a requirement. It adds depth for those who fully immerse themselves, but never gates core progression.
         </p>
       </motion.div>
 
@@ -61,7 +61,7 @@ export default function IncantationSlide() {
             initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.15 + 0.3, duration: 0.6 }}
-            className={`p-6 rounded-sm panel-gold ${item.border} flex items-start gap-5 relative overflow-hidden`}
+            className={`p-6 rounded-sm panel-blue ${item.border} flex items-start gap-5 relative overflow-hidden`}
           >
             {/* Background subtle animated pulse for the 'Perfect' one */}
             {item.pulse && (
@@ -72,13 +72,13 @@ export default function IncantationSlide() {
                />
             )}
 
-            <div className={`p-4 rounded-sm bg-black/40 ${item.color} border border-gold/20 shrink-0 relative z-10`}>
+            <div className={`p-4 rounded-sm bg-black/40 ${item.color} border border-blue-500/20 shrink-0 relative z-10`}>
               {item.icon}
             </div>
             
             <div className="relative z-10">
               <h3 className={`display text-xl mb-1 ${item.color}`}>{item.title}</h3>
-              <p className="text-[10px] uppercase font-mono text-white/40 tracking-widest mb-2 border-b border-gold/20 pb-1">
+              <p className="text-[10px] uppercase font-mono text-white/40 tracking-widest mb-2 border-b border-blue-500/20 pb-1">
                 [ {item.condition} ]
               </p>
               <p className="text-white/70 text-[13px] leading-relaxed serif italic">

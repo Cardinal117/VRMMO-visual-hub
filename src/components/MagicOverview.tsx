@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, Play, Pause, RotateCcw } from 'lucide-react';
+import ModuleMenu from './ModuleMenu';
 
 // Subcomponents for the animation scenes
 import SceneIdentity from './magic-overview/SceneIdentity';
@@ -106,6 +107,8 @@ export default function MagicOverview({ onBack }: { onBack: () => void }) {
       >
         <ChevronLeft className="w-4 h-4" /> Hub
       </button>
+
+      <ModuleMenu type="magic" />
 
       {/* Main Content Area */}
       <main className="relative z-10 w-full max-w-6xl h-full flex items-center justify-center px-4 md:p-8 pt-20 pb-32">

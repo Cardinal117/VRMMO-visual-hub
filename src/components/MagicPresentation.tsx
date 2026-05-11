@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
+import ModuleMenu from './ModuleMenu';
 
 import IntroSlide from './slides/IntroSlide';
 import EquipmentSlide from './slides/EquipmentSlide';
@@ -51,10 +52,12 @@ export default function MagicPresentation({ onBack }: { onBack: () => void }) {
       {/* Back Button */}
       <button 
         onClick={onBack}
-        className="absolute top-4 sm:top-8 left-4 sm:left-8 z-50 p-2 rounded-sm border border-gold/30 text-gold hover:bg-gold/10 hover:border-gold transition-all flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase backdrop-blur-sm bg-black/40 cursor-pointer"
+        className="absolute top-4 sm:top-8 left-4 sm:left-8 z-50 p-2 rounded-sm border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 hover:border-blue-400 transition-all flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase backdrop-blur-sm bg-black/40 cursor-pointer"
       >
         <ChevronLeft className="w-4 h-4" /> Hub
       </button>
+
+      <ModuleMenu type="magic" />
 
       {/* Background Magic Particles/Atmosphere */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen">
@@ -62,7 +65,7 @@ export default function MagicPresentation({ onBack }: { onBack: () => void }) {
         {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-gold blur-[2px]"
+            className="absolute rounded-full bg-blue-400 blur-[2px]"
             initial={{ 
               x: Math.random() * window.innerWidth, 
               y: window.innerHeight + Math.random() * 200,
@@ -113,7 +116,7 @@ export default function MagicPresentation({ onBack }: { onBack: () => void }) {
                   setDirection(i > currentSlide ? 1 : -1);
                   setCurrentSlide(i);
                 }}
-                className={`w-6 sm:w-12 h-1 rounded-full transition-all duration-500 flex-shrink-0 ${i === currentSlide ? 'bg-gold shadow-[0_0_8px_rgba(212,175,55,0.8)]' : 'bg-white/20 hover:bg-white/40'}`}
+                className={`w-6 sm:w-12 h-1 rounded-full transition-all duration-500 flex-shrink-0 ${i === currentSlide ? 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)]' : 'bg-white/20 hover:bg-white/40'}`}
                 aria-label={`Go to slide ${i + 1}`}
               />
             ))}
@@ -131,7 +134,7 @@ export default function MagicPresentation({ onBack }: { onBack: () => void }) {
           <button 
             onClick={() => paginate(1)}
             disabled={currentSlide === slides.length - 1}
-            className="p-2 sm:p-3 rounded-full border border-gold/30 text-gold hover:text-gold hover:border-gold hover:bg-gold/10 hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+            className="p-2 sm:p-3 rounded-full border border-blue-500/30 text-blue-400 hover:text-blue-400 hover:border-blue-400 hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>

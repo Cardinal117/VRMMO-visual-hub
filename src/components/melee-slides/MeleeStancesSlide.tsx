@@ -1,34 +1,36 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { Shield, Sword } from 'lucide-react';
 
 export default function MeleeStancesSlide() {
   const categories = [
     {
       title: "One-Handed Stances",
+      icon: <Sword className="w-4 h-4" />,
       stances: [
-        { name: "High Guard", desc: "Weapon raised near or above the head.", skills: "Overhead Slash, Wind Slash" },
-        { name: "Low Guard", desc: "Weapon held low near hips or side.", skills: "Rising Slash, Draw Cut" },
-        { name: "Side Guard", desc: "Weapon held to the left or right side.", skills: "Sweeping Cut, Cleave" },
-        { name: "Forward Point", desc: "Weapon pointed forward at the target.", skills: "Thrust, Dash Pierce" }
+        { name: "High Guard", desc: "Raised near head.", skills: "Overhead Slash" },
+        { name: "Low Guard", desc: "Held low near hips.", skills: "Rising Slash" },
+        { name: "Side Guard", desc: "Held to the side.", skills: "Sweeping Cut" },
+        { name: "Forward Point", desc: "Pointed forward.", skills: "Thrust, Pierce" }
       ]
     },
     {
       title: "Two-Handed Stances",
+      icon: <Shield className="w-4 h-4" />,
       stances: [
-        { name: "Two-Hand Overhead", desc: "Both hands on weapon, raised high.", skills: "Crescent Wave, Heavy Cleave" },
-        { name: "Two-Hand Low Draw", desc: "Both hands low, prepared for fast draw.", skills: "Iai Slash, Shock Cut" }
+        { name: "Overhead", desc: "Both hands raised high.", skills: "Heavy Cleave" },
+        { name: "Low Draw", desc: "Prepared for fast draw.", skills: "Iai Slash" }
       ]
     }
   ];
 
   return (
-    <div className="w-full max-w-5xl flex flex-col justify-center">
+    <div className="w-full h-full max-w-5xl flex flex-col justify-center">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mb-12 text-center border-b border-gold/20 pb-4"
+        className="mb-8 text-center border-b border-gold/20 pb-4"
       >
         <h2 className="display text-4xl text-gold tracking-[0.3em] glow-amber mb-2">
           Recognizable Stances
@@ -38,37 +40,48 @@ export default function MeleeStancesSlide() {
         </p>
       </motion.div>
 
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-6">
         {categories.map((cat, i) => (
           <motion.div 
             key={i}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.3 + 0.3, duration: 0.6 }}
+            className="flex flex-col"
           >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-2 border border-gold/40 rounded-sm bg-black/40 text-gold">
-                {i === 0 ? <Sword className="w-5 h-5" /> : <Shield className="w-5 h-5" />}
+            <div className="flex items-center gap-3 mb-4 border-b border-gold/10 pb-2 w-fit">
+              <div className="p-1 border border-gold/40 rounded bg-black/40 text-gold">
+                {cat.icon}
               </div>
-              <h3 className="display text-xl text-white/90">{cat.title}</h3>
+              <h3 className="display text-lg text-white/90">{cat.title}</h3>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {cat.stances.map((stance, j) => (
-                <div key={j} className="panel-gold p-5 rounded-sm border border-gold/10 hover:border-gold/40 transition-colors group relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  
-                  <div className="relative z-10 flex flex-col h-full">
-                    <h4 className="display text-lg text-gold mb-1">{stance.name}</h4>
-                    <p className="text-white/60 serif italic text-[12px] mb-4 flex-grow">{stance.desc}</p>
-                    <div className="mt-auto">
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-gold/40 border-b border-gold/20 pb-1 mb-2 block">
-                        Possible Skills
-                      </span>
-                      <p className="text-white/90 text-xs font-bold uppercase tracking-wider">{stance.skills}</p>
-                    </div>
+                <motion.div 
+                  key={j} 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: (i * 0.3) + (j * 0.1) + 0.5, duration: 0.4 }}
+                  className="relative p-3 rounded bg-[#0a0a0c] border border-gold/20 group hover:border-gold/60 transition-all overflow-hidden flex flex-col justify-between min-h-[100px]"
+                >
+                  <motion.div 
+                    animate={{ 
+                      boxShadow: ["inset 0 0 0px rgba(212,175,55,0)", "inset 0 0 20px rgba(212,175,55,0.3)", "inset 0 0 0px rgba(212,175,55,0)"] 
+                    }}
+                    transition={{ duration: 2, delay: j * 0.5, repeat: Infinity }}
+                    className="absolute inset-0 pointer-events-none rounded"
+                  />
+                  <div className="relative z-10">
+                    <h4 className="display text-sm text-gold mb-1">{stance.name}</h4>
+                    <p className="text-white/50 serif italic text-[10px] leading-tight mb-2">{stance.desc}</p>
                   </div>
-                </div>
+                  <div className="relative z-10 mt-auto">
+                    <span className="font-mono text-[8px] uppercase tracking-widest text-gold/60 block truncate">
+                      Skills: <span className="text-white/80">{stance.skills}</span>
+                    </span>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
+import ModuleMenu from './ModuleMenu';
 
 import RangedIntroSlide from './ranged-slides/RangedIntroSlide';
 import RangedQuiverSlide from './ranged-slides/RangedQuiverSlide';
@@ -59,6 +60,8 @@ export default function RangedPresentation({ onBack }: { onBack: () => void }) {
       >
         <ChevronLeft className="w-4 h-4" /> Hub
       </button>
+
+      <ModuleMenu type="ranged" />
 
       {/* Atmospheric Particles - Emerald */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-30 mix-blend-screen">

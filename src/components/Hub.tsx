@@ -1,8 +1,11 @@
 import React from 'react';
 import { Sparkles, Swords, Crosshair } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 
-export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
+export default function Hub() {
+  const navigate = useNavigate();
+
   const options = [
     {
        id: 'magic',
@@ -11,7 +14,8 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
        icon: <Sparkles className="w-16 h-16" />,
        color: 'text-blue-400',
        border: 'border-blue-500/30',
-       overviewId: 'magic-overview'
+       overviewId: 'magic/overview',
+       showcaseId: 'magic/showcase'
     },
     {
        id: 'melee',
@@ -21,7 +25,8 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
        color: 'text-gold',
        border: 'border-gold/30',
        glow: 'glow-amber',
-       overviewId: 'melee-overview'
+       overviewId: 'melee/overview',
+       showcaseId: 'melee/showcase'
     },
     {
        id: 'ranged',
@@ -32,7 +37,8 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
        border: 'border-emerald-500/30',
        locked: false,
        glow: 'glow-emerald',
-       overviewId: 'ranged-overview'
+       overviewId: 'ranged/overview',
+       showcaseId: 'ranged/showcase'
     }
   ];
 
@@ -55,7 +61,7 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
         {options.map((opt, i) => (
           <div key={opt.id} className="relative flex flex-col items-center">
             <motion.button
-              onClick={() => !opt.locked && onSelect(opt.id)}
+              onClick={() => !opt.locked && navigate(`/${opt.showcaseId}`)}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.15 + 0.2 }}
@@ -80,12 +86,12 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
               </p>
             </motion.button>
             
-            {opt.overviewId === 'magic-overview' && (
+            {opt.overviewId === 'magic/overview' && (
               <motion.button
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.15 + 0.4 }}
-                onClick={() => onSelect(opt.overviewId!)}
+                onClick={() => navigate(`/${opt.overviewId}`)}
                 className="absolute -bottom-14 w-64 h-10 rounded-full border border-cyan-500/40 bg-black/60 shadow-[0_0_15px_rgba(6,182,212,0.2)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] hover:border-cyan-400 transition-all duration-300 overflow-hidden group cursor-pointer z-20 flex items-center justify-center"
               >
                 {/* Background Dim Liquid */}
@@ -135,14 +141,14 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
               </motion.button>
             )}
 
-            {opt.overviewId === 'melee-overview' && (
+            {opt.overviewId === 'melee/overview' && (
               <motion.button
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 0.98 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ delay: i * 0.15 + 0.4, type: "spring", stiffness: 400, damping: 25 }}
-                onClick={() => onSelect(opt.overviewId!)}
+                onClick={() => navigate(`/${opt.overviewId}`)}
                 className="absolute -bottom-14 w-64 h-10 bg-[#151515] border-y-2 border-x-4 border-[#333] hover:border-gold shadow-[0_0_10px_rgba(0,0,0,0.8)] hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-colors duration-300 overflow-hidden group cursor-pointer z-20 flex items-center justify-center rounded-sm"
               >
                 {/* Dark Brushed Metal Background */}
@@ -186,14 +192,14 @@ export default function Hub({ onSelect }: { onSelect: (id: string) => void }) {
               </motion.button>
             )}
 
-            {opt.overviewId === 'ranged-overview' && (
+            {opt.overviewId === 'ranged/overview' && (
                <motion.button
                  initial={{ opacity: 0, y: -10 }}
                  animate={{ opacity: 1, y: 0 }}
                  whileHover={{ scale: 0.98 }}
                  whileTap={{ scale: 0.95 }}
                  transition={{ delay: i * 0.15 + 0.4, type: "spring", stiffness: 400, damping: 25 }}
-                 onClick={() => onSelect(opt.overviewId!)}
+                 onClick={() => navigate(`/${opt.overviewId}`)}
                  className="absolute -bottom-14 w-64 h-10 bg-[#0a1510] border border-emerald-900/50 hover:border-emerald-400/80 shadow-[0_0_10px_rgba(0,0,0,0.8)] hover:shadow-[0_0_20px_rgba(52,211,153,0.3)] transition-colors duration-300 overflow-hidden group cursor-pointer z-20 flex items-center justify-center rounded-full"
                >
                  {/* Dark Glass Capsule Background */}

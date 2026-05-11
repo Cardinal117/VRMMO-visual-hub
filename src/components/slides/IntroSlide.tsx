@@ -11,12 +11,12 @@ export default function IntroSlide() {
         transition={{ delay: 0.2, duration: 1, ease: "easeOut" }}
         className="relative"
       >
-        <div className="absolute inset-0 blur-3xl bg-gold/10 rounded-full scale-150" />
-        <Sparkles className="w-16 h-16 text-gold mx-auto mb-6 drop-shadow-[0_0_15px_rgba(212,175,55,0.8)]" />
-        <h1 className="display text-6xl md:text-8xl tracking-widest text-glow mb-4 text-gold">
+        <div className="absolute inset-0 blur-3xl bg-blue-400/10 rounded-full scale-150" />
+        <Sparkles className="w-16 h-16 text-blue-400 mx-auto mb-6 drop-shadow-[0_0_15px_rgba(96,165,250,0.8)]" />
+        <h1 className="display text-6xl md:text-8xl tracking-widest text-glow mb-4 text-blue-400">
           AETHERIUM
         </h1>
-        <h2 className="text-xl md:text-2xl text-gold/80 tracking-[0.2em] uppercase font-light serif">
+        <h2 className="text-xl md:text-2xl text-blue-400/80 tracking-[0.2em] uppercase font-light serif">
           Arcane Combat System
         </h2>
       </motion.div>
@@ -28,7 +28,7 @@ export default function IntroSlide() {
         className="max-w-2xl space-y-6 text-lg text-white/70 serif italic"
       >
         <p>
-          Magic is not just pointing and shooting. It is born of <strong className="text-gold">ritual, selection, and delivery</strong>.
+          Magic is not just pointing and shooting. It is born of <strong className="text-blue-400">ritual, selection, and delivery</strong>.
         </p>
         <p>
           Our VR casting system emphasizes feeling the weight of ancient knowledge, shaping arcane energy with physical motions, and balancing preparation with real-time combat reflexes.

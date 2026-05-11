@@ -28,9 +28,35 @@ export default function SceneRecognition() {
            <div className="relative flex flex-col items-center">
              <motion.div animate={{ borderColor: pulse ? 'rgba(212,175,55,0.8)' : 'rgba(212,175,55,0.2)' }} className="w-16 h-16 border-2 border-dashed rounded-full mb-2 flex items-center justify-center"><span className="text-[8px] font-mono text-gold/50">HEAD</span></motion.div>
              <div className="flex gap-4">
-               <motion.div animate={{ borderColor: pulse ? 'rgba(212,175,55,0.8)' : 'rgba(212,175,55,0.2)' }} className="w-12 h-12 border-2 border-dashed rounded-full mt-4 flex items-center justify-center"><span className="text-[8px] font-mono text-gold/50">HAND</span></motion.div>
+               
+               {/* Left Hand with Haptics */}
+               <motion.div 
+                 animate={{ 
+                   borderColor: pulse ? 'rgba(212,175,55,0.8)' : 'rgba(212,175,55,0.2)',
+                   x: pulse ? [-2, 2, -1, 1, 0] : 0,
+                 }} 
+                 transition={{ x: { duration: 0.2, repeat: Infinity } }}
+                 className="w-12 h-12 border-2 border-dashed rounded-full mt-4 flex items-center justify-center relative"
+               >
+                 <span className="text-[8px] font-mono text-gold/50 relative z-10">HAND</span>
+                 {pulse && <motion.div className="absolute -inset-2 border border-orange-500/50 rounded-full animate-ping pointer-events-none" />}
+               </motion.div>
+
                <div className="w-20 h-24 border border-gold/20 flex flex-col items-center justify-center"><span className="text-[8px] font-mono text-gold/50">CHEST</span></div>
-               <motion.div animate={{ borderColor: pulse ? 'rgba(212,175,55,0.8)' : 'rgba(212,175,55,0.2)' }} className="w-12 h-12 border-2 border-dashed rounded-full mt-4 flex items-center justify-center"><span className="text-[8px] font-mono text-gold/50">HAND</span></motion.div>
+               
+               {/* Right Hand with Haptics */}
+               <motion.div 
+                 animate={{ 
+                   borderColor: pulse ? 'rgba(212,175,55,0.8)' : 'rgba(212,175,55,0.2)',
+                   x: pulse ? [-2, 2, -1, 1, 0] : 0,
+                 }} 
+                 transition={{ x: { duration: 0.2, repeat: Infinity } }}
+                 className="w-12 h-12 border-2 border-dashed rounded-full mt-4 flex items-center justify-center relative"
+               >
+                 <span className="text-[8px] font-mono text-gold/50 relative z-10">HAND</span>
+                 {pulse && <motion.div className="absolute -inset-2 border border-orange-500/50 rounded-full animate-ping pointer-events-none" />}
+               </motion.div>
+
              </div>
              <div className="w-24 h-12 border border-gold/20 mt-2 flex items-center justify-center"><span className="text-[8px] font-mono text-gold/50">HIPS</span></div>
            </div>

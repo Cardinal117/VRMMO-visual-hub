@@ -53,9 +53,33 @@ export default function RangedCurveSlide() {
 
            <div className="flex-1 relative flex items-center justify-center mt-12 mb-4">
              {/* Target dummy */}
-             <div className="absolute right-12 w-4 h-16 border-2 border-white/20 bg-white/5" />
+             <div className="absolute right-12 flex flex-col items-center">
+                <div className="w-6 h-6 rounded-full bg-red-900/40 border border-red-500/50 mb-1" />
+                <div className="w-10 h-16 rounded bg-red-900/30 border border-red-500/40 flex items-center justify-center">
+                   <div className="w-6 h-6 rounded-full border border-red-500/60 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-red-500/80" />
+                   </div>
+                </div>
+                <div className="w-4 h-10 bg-gray-800 border-x border-gray-600 mt-1" />
+             </div>
+             
              {/* Player bow approximation */}
-             <div className="absolute left-12 w-2 h-20 border-l-2 border-white/40 rounded-[50%]" />
+             <div className="absolute left-10 flex items-center z-10 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]">
+               <svg className="absolute w-48 h-64 overflow-visible -left-12 -top-32" viewBox="0 0 200 300">
+                 <path d="M 100 20 C 130 20, 140 80, 100 130" stroke="url(#curveBowGrad)" strokeWidth="6" strokeLinecap="round" fill="none" />
+                 <path d="M 100 280 C 130 280, 140 220, 100 170" stroke="url(#curveBowGrad)" strokeWidth="6" strokeLinecap="round" fill="none" />
+                 <circle cx="98" cy="15" r="4" fill="#6ee7b7" />
+                 <circle cx="98" cy="285" r="4" fill="#6ee7b7" />
+                 <rect x="94" y="130" width="12" height="40" rx="3" fill="#1f2937" stroke="#047857" strokeWidth="2" />
+                 <defs>
+                   <linearGradient id="curveBowGrad" x1="0" y1="0" x2="0" y2="1">
+                     <stop offset="0%" stopColor="#059669" />
+                     <stop offset="50%" stopColor="#064e3b" />
+                     <stop offset="100%" stopColor="#059669" />
+                   </linearGradient>
+                 </defs>
+               </svg>
+             </div>
 
              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 500 400" preserveAspectRatio="none">
                <AnimatePresence mode="popLayout">

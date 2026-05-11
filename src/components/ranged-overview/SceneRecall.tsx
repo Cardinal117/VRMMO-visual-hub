@@ -40,19 +40,46 @@ export default function SceneRecall() {
             </motion.div>
           ) : (
             <motion.div key="recall" className="absolute inset-0 z-10">
-               {/* Recall Lines */}
-               <motion.div 
-                 initial={{ width: 0, opacity: 1 }} animate={{ width: 400, opacity: 0 }} transition={{ duration: 0.8 }}
-                 className="absolute top-1/4 right-32 h-px bg-emerald-400 origin-right shadow-[0_0_10px_rgba(52,211,153,1)] rotate-[15deg]"
-               />
-               <motion.div 
-                 initial={{ width: 0, opacity: 1 }} animate={{ width: 300, opacity: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-                 className="absolute bottom-1/4 right-48 h-px bg-emerald-400 origin-right shadow-[0_0_10px_rgba(52,211,153,1)] rotate-[-10deg]"
-               />
-
-               <div className="absolute right-16 top-8 font-mono text-[10px] uppercase tracking-widest text-emerald-400 glow-emerald">
-                 Violent Recall
+               <div className="absolute top-1/4 right-32 font-mono text-[10px] uppercase tracking-widest text-emerald-400 glow-emerald">
+                 Scatter Recall
                </div>
+               
+               {/* Shrapnel Particles */}
+               {[...Array(6)].map((_, i) => (
+                 <motion.div
+                   key={`particle-${i}`}
+                   initial={{ x: 200, y: 0, opacity: 0, scale: 0 }}
+                   animate={{ 
+                     x: [200, 200, 0, -150, -150], 
+                     y: [0, 0, (Math.random() - 0.5) * 100, 0, 0],
+                     opacity: [0, 0, 1, 1, 0],
+                     scale: [0, 0, Math.random() * 1.5 + 0.5, 0.5, 0]
+                   }}
+                   transition={{ times: [0, 0.2, 0.6, 0.9, 0.95], duration: 2, repeat: Infinity }}
+                   className="absolute left-1/2 top-1/2 w-3 h-1 bg-emerald-400 rounded-full shadow-[0_0_8px_#34d399] z-20"
+                 />
+               ))}
+
+               {/* 3 Shrapnel Arrows */}
+               {[-40, 0, 40].map((yOffset, i) => (
+                 <motion.div
+                   key={`shrapnel-${i}`}
+                   initial={{ x: 200, y: 0, opacity: 0 }}
+                   animate={{ 
+                     x: [200, 200, 0, -150, -150],
+                     y:  [0, 0, yOffset, 0, 0],
+                     rotateZ: [-90, -90, -90 + (yOffset/2), -90, -90],
+                     opacity: [0, 0, 1, 1, 0],
+                     scale: [0, 0, 0.7, 0.7, 0]
+                   }}
+                   transition={{ times: [0, 0.2, 0.6, 0.9, 0.95], duration: 2, repeat: Infinity }}
+                   className="absolute left-1/2 top-1/2 drop-shadow-[0_0_10px_rgba(52,211,153,1)] z-10 mix-blend-screen"
+                 >
+                   <div className="relative w-2 h-12 shadow-[0_0_8px_rgba(255,255,255,0.5)] bg-gradient-to-b from-gray-300 to-gray-500 rounded-sm">
+                     <div className="absolute -top-2 left-1/2 -ml-[3px] w-1.5 h-3 rounded-t-sm bg-emerald-300" style={{ clipPath: 'polygon(50% 0%, 100% 100%, 0% 100%)' }} />
+                   </div>
+                 </motion.div>
+               ))}
             </motion.div>
           )}
         </AnimatePresence>
