@@ -55,7 +55,7 @@ export default function SceneCombat() {
           </motion.div>
         )}
 
-        {/* Hover & Select */}
+        {/* Hover, Trace & Select */}
         {(step === 2 || step === 3) && (
            <motion.div
              initial={{ x: 100, y: 100, opacity: 0 }}
@@ -63,7 +63,24 @@ export default function SceneCombat() {
              className="absolute z-20 text-white flex flex-col items-center"
            >
              <Hand className="w-8 h-8 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
-             {step === 2 && <span className="font-mono text-[9px] uppercase tracking-widest text-orange-400 mt-2 glow-amber">Charging...</span>}
+             
+             {step === 2 && (
+               <>
+                 <span className="font-mono text-[9px] uppercase tracking-widest text-orange-400 mt-2 glow-amber">Tracing Symbol...</span>
+                 <svg className="absolute top-10 left-10 w-24 h-24 overflow-visible">
+                   <motion.path 
+                     initial={{ pathLength: 0 }}
+                     animate={{ pathLength: 1 }}
+                     transition={{ duration: 1.5, ease: "easeInOut" }}
+                     d="M 10 10 L 50 80 L 90 10 Z"
+                     fill="none"
+                     stroke="rgba(249,115,22,0.8)"
+                     strokeWidth="3"
+                     className="drop-shadow-[0_0_8px_rgba(249,115,22,1)]"
+                   />
+                 </svg>
+               </>
+             )}
            </motion.div>
         )}
 
@@ -93,9 +110,9 @@ export default function SceneCombat() {
       <div className="flex gap-4 mt-8 font-mono text-[9px] uppercase tracking-widest text-orange-300/50">
         <span className={step === 0 ? 'text-orange-400 glow-amber' : ''}>1. Throw</span>
         <span>→</span>
-        <span className={step === 1 ? 'text-orange-400 glow-amber' : ''}>2. Ring Expands</span>
+        <span className={step === 1 ? 'text-orange-400 glow-amber' : ''}>2. Ring</span>
         <span>→</span>
-        <span className={step === 2 ? 'text-orange-400 glow-amber' : ''}>3. Hover & Charge</span>
+        <span className={step === 2 ? 'text-orange-400 glow-amber' : ''}>3. Trace Shape</span>
         <span>→</span>
         <span className={step === 3 ? 'text-orange-400 glow-amber' : ''}>4. Release</span>
         <span>→</span>
