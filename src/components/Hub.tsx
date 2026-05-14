@@ -1,10 +1,15 @@
-import React from 'react';
-import { Sparkles, Swords, Crosshair } from 'lucide-react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { Sparkles, Swords, Crosshair, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
+
+import MagicMotionReview from './motion-reviews/MagicMotionReview';
+import MeleeMotionReview from './motion-reviews/MeleeMotionReview';
+import RangedMotionReview from './motion-reviews/RangedMotionReview';
 
 export default function Hub() {
   const navigate = useNavigate();
+  const [activeMotionReview, setActiveMotionReview] = useState<string | null>(null);
 
   const options = [
     {
@@ -43,7 +48,7 @@ export default function Hub() {
   ];
 
   return (
-    <div className="w-full min-h-[100dvh] md:h-screen bg-arcane relative flex flex-col items-center justify-center overflow-x-hidden overflow-y-auto pt-24 pb-24 md:p-0">
+    <div className="w-full min-h-[100dvh] bg-arcane relative flex flex-col items-center justify-center overflow-x-hidden pt-24 pb-24 md:p-0">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -60,6 +65,17 @@ export default function Hub() {
       <div className="flex flex-col md:flex-row gap-20 md:gap-8 z-10 w-full max-w-6xl justify-center items-center px-4">
         {options.map((opt, i) => (
           <div key={opt.id} className="relative flex flex-col items-center">
+            {!opt.locked && (
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.15 + 0.3 }}
+                onClick={() => setActiveMotionReview(opt.id)}
+                className={`absolute -top-12 px-4 py-1.5 rounded bg-black/60 border hover:bg-white/5 transition-all duration-300 z-20 font-mono text-[9px] uppercase tracking-widest flex items-center justify-center cursor-pointer shadow-lg ${opt.border}`}
+              >
+                <span className={opt.color}>Motion Preview</span>
+              </motion.button>
+            )}
             <motion.button
               onClick={() => !opt.locked && navigate(`/${opt.showcaseId}`)}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -254,20 +270,20 @@ export default function Hub() {
       </div>
       
       {/* Background Magic Particles/Atmosphere */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen">
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen overflow-hidden">
         {Array.from({ length: 30 }).map((_, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full bg-white/20 blur-[2px]"
             initial={{ 
-              x: Math.random() * window.innerWidth, 
-              y: window.innerHeight + Math.random() * 200,
+              left: `${Math.random() * 100}%`, 
+              top: `${100 + Math.random() * 20}%`,
               opacity: Math.random() * 0.5,
               scale: Math.random() * 2 + 1
             }}
             animate={{ 
-              y: -100,
-              x: `calc(${Math.random() * 100 - 50}vw)`,
+              top: `-10%`,
+              left: `${Math.random() * 100}%`,
             }}
             transition={{ 
               duration: Math.random() * 10 + 10, 
@@ -279,6 +295,39 @@ export default function Hub() {
           />
         ))}
       </div>
+
+      {/* Motion Review Modal */}
+      <AnimatePresence>
+        {activeMotionReview && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            onClick={() => setActiveMotionReview(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative p-2"
+            >
+              <button 
+                onClick={() => setActiveMotionReview(null)}
+                className="absolute -top-8 right-0 text-white/50 hover:text-white transition-colors"
+                title="Close"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              {activeMotionReview === 'magic' && <MagicMotionReview />}
+              {activeMotionReview === 'melee' && <MeleeMotionReview />}
+              {activeMotionReview === 'ranged' && <RangedMotionReview />}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
